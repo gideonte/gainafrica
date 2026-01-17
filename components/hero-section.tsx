@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { useQuery } from "convex/react"
-import { api } from "@/convex/_generated/api"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { ArrowRight, Calendar, MapPin } from "lucide-react"
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { ArrowRight, Calendar, MapPin } from "lucide-react";
 
 export function HeroSection() {
-  const activeEvent = useQuery(api.events.getActive)
+  const activeEvent = useQuery(api.events.getActive);
 
   return (
     <section className="relative min-h-screen bg-primary text-primary-foreground">
@@ -15,7 +15,9 @@ export function HeroSection() {
 
       <div className="relative mx-auto max-w-7xl px-6 pt-32 pb-24 lg:px-8 lg:pt-40">
         <div className="max-w-3xl">
-          <p className="text-sm font-medium uppercase tracking-widest text-primary-foreground/70">Annual Conference</p>
+          <p className="text-sm font-medium uppercase tracking-widest text-primary-foreground/70">
+            Annual Conference
+          </p>
 
           <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl text-balance">
             {activeEvent?.theme || "Empowering Media for Africa's Future"}
@@ -23,7 +25,7 @@ export function HeroSection() {
 
           <p className="mt-6 text-lg text-primary-foreground/80 max-w-2xl leading-relaxed">
             {activeEvent?.description ||
-              "Join media and communications professionals from across Africa for networking, learning, and collaboration at GAiN Africa."}
+              "Join Adventist media and communications professionals from across Africa for networking, learning, and collaboration at GAiN Africa."}
           </p>
 
           {activeEvent && (
@@ -54,7 +56,11 @@ export function HeroSection() {
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             {activeEvent?.registrationOpen && (
-              <Button size="lg" asChild className="bg-primary-foreground text-primary hover:bg-primary-foreground/90">
+              <Button
+                size="lg"
+                asChild
+                className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+              >
                 <Link href="/register">
                   Register Now
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -80,5 +86,5 @@ export function HeroSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
