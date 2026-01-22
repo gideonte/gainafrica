@@ -1,5 +1,5 @@
-import { query, mutation } from "./_generated/server"
-import { v } from "convex/values"
+import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
 
 export const getByEvent = query({
   args: { eventId: v.id("events") },
@@ -7,9 +7,9 @@ export const getByEvent = query({
     return await ctx.db
       .query("registrations")
       .withIndex("by_event", (q) => q.eq("eventId", args.eventId))
-      .collect()
+      .collect();
   },
-})
+});
 
 export const checkExisting = query({
   args: { email: v.string(), eventId: v.id("events") },
@@ -17,10 +17,10 @@ export const checkExisting = query({
     const registrations = await ctx.db
       .query("registrations")
       .withIndex("by_email", (q) => q.eq("email", args.email))
-      .collect()
-    return registrations.find((r) => r.eventId === args.eventId)
+      .collect();
+    return registrations.find((r) => r.eventId === args.eventId);
   },
-})
+});
 
 export const create = mutation({
   args: {
@@ -39,6 +39,30 @@ export const create = mutation({
       ...args,
       registeredAt: new Date().toISOString(),
       status: "confirmed",
-    })
+    });
   },
-})
+});
+
+export const remove = mutation({
+  args: { id: v.id("registrations") },
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.id);
+  },
+});
+
+export const getAll = query({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.db.query("registrations").collect();
+  },
+});
+
+export const updateStatus = mutation({
+  args: {
+    id: v.id("registrations"),
+    status: v.string(),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.id, { status: args.status });
+  },
+});

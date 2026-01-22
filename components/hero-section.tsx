@@ -77,13 +77,6 @@ export function HeroSection() {
             </Button>
           </div>
         </div>
-
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-          <div className="flex flex-col items-center gap-2 text-primary-foreground/50">
-            <span className="text-xs uppercase tracking-widest">Scroll</span>
-            <div className="h-12 w-px bg-primary-foreground/30" />
-          </div>
-        </div>
       </div>
     </section>
   );

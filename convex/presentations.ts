@@ -1,5 +1,5 @@
-import { query, mutation } from "./_generated/server"
-import { v } from "convex/values"
+import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
 
 export const getByEvent = query({
   args: { eventId: v.id("events") },
@@ -7,9 +7,9 @@ export const getByEvent = query({
     return await ctx.db
       .query("presentations")
       .withIndex("by_event", (q) => q.eq("eventId", args.eventId))
-      .collect()
+      .collect();
   },
-})
+});
 
 export const create = mutation({
   args: {
@@ -22,6 +22,20 @@ export const create = mutation({
     duration: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    return await ctx.db.insert("presentations", args)
+    return await ctx.db.insert("presentations", args);
   },
-})
+});
+
+export const remove = mutation({
+  args: { id: v.id("presentations") },
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.id);
+  },
+});
+
+export const getAll = query({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.db.query("presentations").collect();
+  },
+});
